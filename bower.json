@@ -1,0 +1,22 @@
+{
+  "name": "talks",
+  "version": "0.0.0",
+  "authors": [
+    "Mathieu Maes <mathieu@webberig.be>"
+  ],
+  "license": "MIT",
+  "homepage": "www.webberig.be",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.7.0",
+    "backbone": "~1.1.2",
+    "reveal.js": "~3.0.0"
+  }
+}
