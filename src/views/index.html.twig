@@ -9,25 +9,16 @@
     <link rel="stylesheet" href="reveal.js/css/reveal.css">
     <link rel="stylesheet" href="reveal.js/css/theme/moon.css" id="theme">
     <link rel="stylesheet" href="css/css-screen.css">
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
 </head>
 
 <body>
 <div class="reveal">
     <div class="slides">
-        <section>
-            <h1>Title of the presentation</h1>
-            <p>After 2 seconds the first fragment will be shown.</p>
-        </section>
-        <section>
-            <p>After 2 seconds the first fragment will be shown.</p>
-        </section>
-        <section>
-            <p>After 2 seconds the first fragment will be shown.</p>
-        </section>
-        <section>
-            <p>After 2 seconds the first fragment will be shown.</p>
-        </section>
-
+        {% include 'slides/introduction.html.twig' %}
+        {% include 'slides/controller.html.twig' %}
+        {% include 'slides/view.html.twig' %}
+        {% include 'slides/model.html.twig' %}
     </div>
 </div>
 <script src="reveal.js/lib/js/head.min.js"></script>

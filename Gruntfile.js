@@ -65,15 +65,12 @@ module.exports = function(grunt) {
         twigger: {
             options: {
                 twig: {
-                    strict_variables: false
+                    base: '<%= folders.src %>/views/'
                 }
             },
             main: {
-                src: '<%= folders.src %>/views/*.twig',
-                expand: true,
-                flatten: true,
-                ext: '.html',
-                dest: '<%= folders.dist %>/'
+                src: '<%= folders.src %>/views/index.html.twig',
+                dest: '<%= folders.dist %>/index.html'
             }
         },
         watch: {
