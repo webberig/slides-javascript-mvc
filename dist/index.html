@@ -34,6 +34,10 @@
 
         <!-- Controller -->
 <section>
+    <h1>MV<span style="color: rebeccapurple">C</span></h1>
+    <h2>Controller</h2>
+</section>
+<section>
     <div class="stretch" data-markdown>
     <script type="text/template">
 ## The old PHP days
@@ -152,6 +156,9 @@ loadSurroundingResults(heleMarkers);
     </div>
 </section>
 <section>
+    <img src="images/debugging.gif" />
+</section>
+<section>
     <h2>We must do better</h2>
     <img class="fragment" src="images/helicopter1.jpg" />
     <p class="fragment">
@@ -210,7 +217,69 @@ var controller = new MyApp.ContactPageController({
     <p class="fragment">None that I'm aware of</p>
     <h1 class="fragment">Pure win</h1>
 </section>
-        
+        <!-- Introduction -->
+<section>
+    <h1>M<span style="color: rebeccapurple">V</span>C</h1>
+    <h2>View</h2>
+</section>
+<section>
+    <div class="stretch">
+        <h2>Componentize the web!</h2>
+        <img src="images/web_components.jpg" />
+
+    </div>
+</section>
+<section>
+    <h2>A view...</h2>
+    <p class="fragment">is an isolated component</p>
+    <p class="fragment">has a single responsibility</p>
+    <p class="fragment">does not require access to global variables</p>
+</section>
+<section>
+    <h2>A view...</h2>
+    <p class="fragment">deals with all interactions (events) within the component</p>
+    <p class="fragment">communicates with other objects through events (ie. Mediator pattern)</p>
+    <p class="fragment">can also have child views</p>
+</section>
+<section>
+    <div data-markdown>
+        <script type="text/template">
+## A view would look like this
+```
+// js/view/ContactMapView.js
+var MyApp = MyApp || {};
+MyApp.ContactMapView = function(options) {
+    this.map = new google.maps.Map(options.mapContainer, {
+        // mapOptions
+    });
+    this.marker = new google.maps.Marker({
+        map: this.map
+    });
+    google.maps.event.addListener(this.marker, 'click',
+        _.bind(this.onClickMarker, this));
+
+}
+MyApp.ContactMapView.prototype.onClickMarker = function() {
+    // Do something expected when user clicks the marker
+}
+```
+        </script>
+    </div>
+</section>
+<section>
+    <div data-markdown>
+        <script type="text/template">
+## Using the view
+```
+// inside a controller, remember ?
+this.contactMap = new MyApp.ContactMapView({
+    container: $("#map")
+});
+```
+        </script>
+    </div>
+</section>
+
         
     </div>
 </div>
