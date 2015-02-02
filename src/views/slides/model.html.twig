@@ -1,0 +1,51 @@
+<!-- Introduction -->
+<section>
+    <h1><span style="color: rebeccapurple">M</span>VC</h1>
+    <h2>Model</h2>
+</section>
+<section>
+    <h2>&lt;form&gt; as data source</h2>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+function validateForm() {
+    if ($("input#name").val() == "") {
+        return "Name is required";
+    }
+}
+function calculateSum() {
+    var sum = 0;
+    $("input.price").each(function(item) {
+        var value = item.val();
+        if (!isNaN(value)) {
+            sum = sum + item.val();
+        }
+    });
+    $("input#sum").val(sum);
+}
+```
+        </script>
+    </div>
+</section>
+<section>
+    <h2>Hidden input !?</h2>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+<input type="hidden" id="sum" />
+```
+        </script>
+    </div>
+    <img class="fragment" src="images/mime.png" />
+</section>
+<section>
+    <h2>When data changes...</h2>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+    $("input").on("change", validateForm);
+    $("select#category").on("change", populateSubcategories);
+```
+        </script>
+    </div>
+</section>
