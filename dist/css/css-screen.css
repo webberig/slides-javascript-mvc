@@ -1,0 +1,58 @@
+body {
+  background: #38302C;
+  color: #BFB9B0;
+  font-family: "ff-nuvo-web-pro", sans-serif;
+  font-size: 36px;
+}
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  margin-bottom: 1.5vw;
+  color: #F2EADF;
+}
+.reveal h1 {
+  font-size: 1.8em;
+}
+.reveal h2 {
+  font-size: 1.5em;
+}
+.reveal code {
+  font-family: monospace;
+  text-align: left;
+  font-size: 1vw;
+}
+.reveal pre code {
+  display: block;
+  padding: 5px;
+  overflow: auto;
+  max-height: 400px;
+  word-wrap: normal;
+  background: #3F3F3F;
+  color: #DCDCDC;
+  margin: 10px;
+}
+.reveal p {
+  margin: 20px 0;
+  line-height: 1.3;
+}
+.reveal section img {
+  margin: 15px 0px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 4px solid #93a1a1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+.reveal img,
+.reveal video,
+.reveal iframe {
+  max-width: 95%;
+  max-height: 95%;
+}
+.reveal small {
+  display: inline-block;
+  font-size: 0.6em;
+  line-height: 1.2em;
+  vertical-align: top;
+}

@@ -6,8 +6,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="http://use.typekit.net/pix4xvr.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
     <link rel="stylesheet" href="reveal.js/css/reveal.css">
-    <link rel="stylesheet" href="reveal.js/css/theme/moon.css" id="theme">
     <link rel="stylesheet" href="css/css-screen.css">
     <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
 </head>
@@ -30,6 +31,214 @@
 </section>
 <section>
     <h2>About me</h2>
+</section>
+
+        <!-- Introduction -->
+<section>
+    <h1><span style="color: rebeccapurple">M</span>VC</h1>
+    <h2>Model</h2>
+</section>
+<section>
+    <h2>&lt;form&gt; as data source</h2>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+function validateForm() {
+    if ($("input#name").val() == "") {
+        return "Name is required";
+    }
+}
+function calculateSum() {
+    var sum = 0;
+    $("input.price").each(function(item) {
+        var value = item.val();
+        if (!isNaN(value)) {
+            sum = sum + item.val();
+        }
+    });
+    $("input#sum").val(sum);
+}
+```
+        </script>
+    </div>
+</section>
+<section>
+    <h2>Hidden input !?</h2>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+<input type="hidden" id="sum" />
+```
+        </script>
+    </div>
+    <img class="fragment" src="images/mime.png" />
+</section>
+<section>
+    <h2>When data changes...</h2>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+    $("input").on("change", validateForm);
+    $("select#category").on("change", populateSubcategories);
+```
+        </script>
+    </div>
+</section>
+<section>
+    <h2>And finally... AJAX</h2>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+$.post("/contactForm", {
+    name: $("input#name").val(),
+    email: $("input#email").val()
+});
+```
+        </script>
+    </div>
+</section>
+<section>
+    <img src="images/datasource-form.png" style="border: none" width="600" />
+</section>
+<section>
+    <h2>Don'ts</h2>
+
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+<input type="hidden" />
+```
+        </script>
+    </div>
+    <p></p>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+<input type="text" value="Matthew" />
+```
+        </script>
+    </div>
+    <p></p>
+    <div data-markdown class="fragment">
+        <script type="text/template">
+```
+$("input#name").on("change", function() {
+    // Do something other then updating the model
+});
+```
+        </script>
+    </div>
+</section>
+<section>
+    <img src="images/datasource-model.png" style="border: none" width="600" />
+</section>
+<section>
+    <h2>Do's</h2>
+    <p class="fragment">Use data binding for your forms</p>
+    <p class="fragment">Allow your model to have initial data, not the form.<br />
+        <small>The first step in data binding is updating your form with the model data</small></p>
+    <p class="fragment">Use your model to interact with the data</p>
+    <p class="fragment">Use an event system to listen for changes to the model</p>
+</section>
+<section>
+    <h2>A model would like this</h2>
+    <div data-markdown>
+        <script type="text/template">
+```
+// js/model/ContactModel.js
+var MyApp = MyApp || {};
+MyApp.ContactModel = function() {
+}
+
+MyApp.ContactModel.prototype.validate = function() {
+}
+```
+        </script>
+    </div>
+    <div class="fragment">
+        <p>Tip: decorate the model with an event system (ie. Backbone.Event)</p>
+    </div>
+</section>
+
+        <!-- Introduction -->
+<section>
+    <h1>M<span style="color: rebeccapurple">V</span>C</h1>
+    <h2>View</h2>
+</section>
+<section>
+    <div class="stretch">
+        <h2>Componentize the web!</h2>
+        <img src="images/web_components.jpg" />
+
+    </div>
+</section>
+<section>
+    <h2>A view...</h2>
+    <p class="fragment">is an isolated component</p>
+    <p class="fragment">has a single responsibility</p>
+    <p class="fragment">does not require access to global variables</p>
+</section>
+<section>
+    <h2>A view...</h2>
+    <p class="fragment">deals with all interactions (events) within the component</p>
+    <p class="fragment">communicates with other objects through events (ie. Mediator pattern)</p>
+    <p class="fragment">can also have child views</p>
+</section>
+<section>
+    <div data-markdown>
+        <script type="text/template">
+## A view would look like this
+```
+// js/view/ContactMapView.js
+var MyApp = MyApp || {};
+MyApp.ContactMapView = function(options) {
+    this.map = new google.maps.Map(options.mapContainer, {
+        // mapOptions
+    });
+    this.marker = new google.maps.Marker({
+        map: this.map
+    });
+    google.maps.event.addListener(this.marker, 'click',
+        _.bind(this.onClickMarker, this));
+
+}
+MyApp.ContactMapView.prototype.onClickMarker = function() {
+    // Do something expected when user clicks the marker
+}
+```
+        </script>
+    </div>
+</section>
+<section>
+    <div data-markdown>
+        <script type="text/template">
+## Using the view
+```
+// inside a controller, remember ?
+this.contactMap = new MyApp.ContactMapView({
+    container: $("#map")
+});
+```
+        </script>
+    </div>
+</section>
+<section>
+    <h2>PRO</h2>
+    <p class="fragment">Clean, maintainable and reusable code</p>
+    <p class="fragment">Prevents getting stuffed controllers (or inline code)</p>
+    <p class="fragment">Testable!</p>
+</section>
+<section>
+    <img src="images/qunit.jpg" />
+    <small><a href="https://qunitjs.com/">https://qunitjs.com/</a></small>
+
+</section>
+<section>
+    <h2>CON</h2>
+    <p class="fragment">Complexe pages may have a lot of views/files<br />
+    <small>Grunt, Gulp, RequireJS, ...</small></p>
+    <p class="fragment">CSS style is not isolated<br />
+    <small>Use best practices in your CSS!</small></p>
 </section>
 
         <!-- Controller -->
@@ -217,141 +426,10 @@ var controller = new MyApp.ContactPageController({
     <p class="fragment">None that I'm aware of</p>
     <h1 class="fragment">Pure win</h1>
 </section>
-        <!-- Introduction -->
-<section>
-    <h1>M<span style="color: rebeccapurple">V</span>C</h1>
-    <h2>View</h2>
-</section>
-<section>
-    <div class="stretch">
-        <h2>Componentize the web!</h2>
-        <img src="images/web_components.jpg" />
-
-    </div>
-</section>
-<section>
-    <h2>A view...</h2>
-    <p class="fragment">is an isolated component</p>
-    <p class="fragment">has a single responsibility</p>
-    <p class="fragment">does not require access to global variables</p>
-</section>
-<section>
-    <h2>A view...</h2>
-    <p class="fragment">deals with all interactions (events) within the component</p>
-    <p class="fragment">communicates with other objects through events (ie. Mediator pattern)</p>
-    <p class="fragment">can also have child views</p>
-</section>
-<section>
-    <div data-markdown>
-        <script type="text/template">
-## A view would look like this
-```
-// js/view/ContactMapView.js
-var MyApp = MyApp || {};
-MyApp.ContactMapView = function(options) {
-    this.map = new google.maps.Map(options.mapContainer, {
-        // mapOptions
-    });
-    this.marker = new google.maps.Marker({
-        map: this.map
-    });
-    google.maps.event.addListener(this.marker, 'click',
-        _.bind(this.onClickMarker, this));
-
-}
-MyApp.ContactMapView.prototype.onClickMarker = function() {
-    // Do something expected when user clicks the marker
-}
-```
-        </script>
-    </div>
-</section>
-<section>
-    <div data-markdown>
-        <script type="text/template">
-## Using the view
-```
-// inside a controller, remember ?
-this.contactMap = new MyApp.ContactMapView({
-    container: $("#map")
-});
-```
-        </script>
-    </div>
-</section>
-<section>
-    <h2>PRO</h2>
-    <p class="fragment">Clean, maintainable and reusable code</p>
-    <p class="fragment">Prevents getting stuffed controllers (or inline code)</p>
-    <p class="fragment">Testable!</p>
-</section>
-<section>
-    <img src="images/qunit.jpg" />
-    <small><a href="https://qunitjs.com/">https://qunitjs.com/</a></small>
-
-</section>
-<section>
-    <h2>CON</h2>
-    <p class="fragment">Complexe pages may have a lot of views/files<br />
-    <small>Grunt, Gulp, RequireJS, ...</small></p>
-    <p class="fragment">CSS style is not isolated<br />
-    <small>Use best practices in your CSS!</small></p>
-</section>
-
-        <!-- Introduction -->
-<section>
-    <h1><span style="color: rebeccapurple">M</span>VC</h1>
-    <h2>Model</h2>
-</section>
-<section>
-    <h2>&lt;form&gt; as data source</h2>
-    <div data-markdown class="fragment">
-        <script type="text/template">
-```
-function validateForm() {
-    if ($("input#name").val() == "") {
-        return "Name is required";
-    }
-}
-function calculateSum() {
-    var sum = 0;
-    $("input.price").each(function(item) {
-        var value = item.val();
-        if (!isNaN(value)) {
-            sum = sum + item.val();
-        }
-    });
-    $("input#sum").val(sum);
-}
-```
-        </script>
-    </div>
-</section>
-<section>
-    <h2>Hidden input !?</h2>
-    <div data-markdown class="fragment">
-        <script type="text/template">
-```
-<input type="hidden" id="sum" />
-```
-        </script>
-    </div>
-    <img class="fragment" src="images/mime.png" />
-</section>
-<section>
-    <h2>When data changes...</h2>
-    <div data-markdown class="fragment">
-        <script type="text/template">
-```
-    $("input").on("change", validateForm);
-    $("select#category").on("change", populateSubcategories);
-```
-        </script>
-    </div>
-</section>
-
     </div>
 </div>
+<script type="text/javascript" src="https://www.draw.io/embed.js"></script>
+
 <script src="reveal.js/lib/js/head.min.js"></script>
 <script src="reveal.js/js/reveal.js"></script>
 <script src="js/app.js"></script>
