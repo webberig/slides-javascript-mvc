@@ -1,0 +1,3 @@
+GeolocationHandler = function() {
+
+};
