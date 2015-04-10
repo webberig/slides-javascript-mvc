@@ -11,6 +11,10 @@ Controller = function() {
     this.geolocationHandler = new GeolocationHandler({
         model: model
     });
+    this.mapView = new MapView({
+        el: document.getElementById('map-container'),
+        model: model
+    });
 
     this.model = model;
     this.listenTo(model, "save", this.onSave);
